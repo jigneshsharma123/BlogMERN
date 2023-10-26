@@ -1,8 +1,10 @@
 
-const HomePosts = () => {
-  return (
-    <div>HomePosts</div>
-  )
+function HomePosts() {
+    return (
+        <div>
+            Home
+        </div>
+    )
 }
 
 export default HomePosts
