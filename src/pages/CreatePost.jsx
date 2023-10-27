@@ -1,9 +1,23 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {ImCross} from 'react-icons/Im';
+import { useState } from "react";
 
 const CreatePost = () => 
 {
+  const [cat,setCat] = useState("");
+  const [cats,setCats] = useState([]);
+  const addCategory = () =>{
+     let updateCats = [...cats];
+     updateCats.push(cat);
+     setCats(updateCats);
+     setCat('');
+    }
+  const deleteCategory = (i) => {
+         let updateCats = [...cats];
+         updateCats.splice(i);
+         setCats(updateCats);
+  }
     return(
         <div>
         <Navbar/>
@@ -14,17 +28,20 @@ const CreatePost = () =>
           <input  type="file"  className='px-4'/>
           <div className='flex flex-col'>
             <div className='flex items-center space-x-4 md:space-x-8'>
-                <input  className='px-4 py-2 outline-none' placeholder='Enter post category' type="text"/>
-                <div  className='bg-black text-white px-4 py-2 font-semibold cursor-pointer'>Add</div>
+                <input value={cat} onChange={(e)=>setCat(e.target.value)}   className='px-4 py-2 outline-none' placeholder='Enter post category' type="text"/>
+                <div onClick={(e)=>addCategory(e)} className='bg-black text-white px-4 py-2 font-semibold cursor-pointer'>Add</div>
             </div>
 
             {/* categories */}
+
             <div className='flex px-4 mt-3'>
-            
-                <div className='flex justify-center items-center space-x-2 mr-4 bg-gray-200 px-2 py-1 rounded-md'>
-                <p>tech</p>
-                <p  className='text-white bg-black rounded-full cursor-pointer p-1 text-sm'><ImCross/></p>
-            </div>
+             {cats.map((c,i)=>(
+      <div key={i} className='flex justify-center items-center space-x-2 mr-4 bg-gray-200 px-2 py-1 rounded-md'>
+      <p>{c}</p>
+      <p onClick={()=>deleteCategory(i)}  className='text-white bg-black rounded-full cursor-pointer p-1 text-sm'><ImCross/></p>
+  </div>
+                ))}
+          
         
             
             
